@@ -44,7 +44,19 @@ public class HighSpeedCar extends Car {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        HighSpeedCar that = (HighSpeedCar) o;
+        final HighSpeedCar that = (HighSpeedCar) o;
+        if (!Objects.equals(super.model, that.model)) {
+            return false;
+        }
+        if (!Objects.equals(super.acceleration, that.acceleration)) {
+            return false;
+        }
+        if (!Objects.equals(super.brand, that.brand)) {
+            return false;
+        }
+        if (!Objects.equals(super.speed, that.speed)) {
+            return false;
+        }
         return driveType == that.driveType && Objects.equals(gearBox, that.gearBox);
     }
 

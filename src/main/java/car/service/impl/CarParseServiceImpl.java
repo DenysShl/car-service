@@ -5,19 +5,10 @@ import car.mapper.HighSpeedCarMapper;
 import car.mapper.PickupCarMapper;
 import car.model.Car;
 import car.model.enums.CarType;
-import car.service.ParseService;
-import car.storage.Storage;
-import java.util.List;
+import car.service.CarParseService;
 
-public class ParseServiceImpl implements ParseService {
-    @Override
-    public void parseCarToStorage(List<String> lines) {
-        for (String stringCar : lines) {
-            Storage.cars.add(getParsed(stringCar));
-        }
-    }
-
-    private Car getParsed(String string) {
+public class CarParseServiceImpl implements CarParseService {
+    public Car parseToCar(String string) {
         if (string.isEmpty()) {
             throw new RuntimeException("We can`t parse an empty string");
         }
@@ -36,10 +27,5 @@ public class ParseServiceImpl implements ParseService {
             default:
                 throw new IllegalArgumentException("Unexpected value: " + carType);
         }
-    }
-
-    @Override
-    public void saveCarToStorage(String car) {
-        Storage.cars.add(getParsed(car));
     }
 }

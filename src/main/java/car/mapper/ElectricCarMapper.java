@@ -12,7 +12,7 @@ public class ElectricCarMapper implements Function<String, ElectricCar> {
         return new ElectricCar(
                 CarType.valueOf(brand[0]),
                 brand[1].trim().toUpperCase(),
-                values[1].trim(),
+                values[1].trim().toUpperCase(),
                 Double.parseDouble(values[2].trim()),
                 Integer.parseInt(values[3].trim()),
                 Integer.parseInt(values[4].trim()),

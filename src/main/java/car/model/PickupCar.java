@@ -32,8 +32,20 @@ public class PickupCar extends Car {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        PickupCar pickupCar = (PickupCar) o;
-        return Objects.equals(fuelConsumption, pickupCar.fuelConsumption);
+        final PickupCar that = (PickupCar) o;
+        if (!Objects.equals(super.model, that.model)) {
+            return false;
+        }
+        if (!Objects.equals(super.acceleration, that.acceleration)) {
+            return false;
+        }
+        if (!Objects.equals(super.brand, that.brand)) {
+            return false;
+        }
+        if (!Objects.equals(super.speed, that.speed)) {
+            return false;
+        }
+        return Objects.equals(fuelConsumption, that.fuelConsumption);
     }
 
     @Override

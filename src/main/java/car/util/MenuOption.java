@@ -1,24 +1,27 @@
 package car.util;
 
+import car.service.CarParseService;
+import car.service.CarSaveService;
 import car.service.GenerateReportsCarService;
-import car.service.ParseService;
-import car.service.PrintReport;
+import car.service.ReportCarService;
 import car.storage.Storage;
 import java.util.Scanner;
 
 public class MenuOption {
     private final GenerateReportsCarService generateReportsCarService;
     private final UserChoiceAddCar userChoiceAddCar;
-    private final ParseService addCarService;
-    private final PrintReport report;
+    private final CarParseService carParseService;
+    private final CarSaveService carSaveService;
+    private final ReportCarService report;
 
     public MenuOption(GenerateReportsCarService generateReportsCarService,
                       UserChoiceAddCar userChoiceAddCar,
-                      ParseService addCarService,
-                      PrintReport report) {
+                      CarParseService carParseService,
+                      CarSaveService carSaveService, ReportCarService report) {
         this.generateReportsCarService = generateReportsCarService;
         this.userChoiceAddCar = userChoiceAddCar;
-        this.addCarService = addCarService;
+        this.carParseService = carParseService;
+        this.carSaveService = carSaveService;
         this.report = report;
     }
 
@@ -47,7 +50,7 @@ public class MenuOption {
                 case "4":
                     System.out.println("Add a new car");
                     String newCar = userChoiceAddCar.userSelected(text);
-                    addCarService.saveCarToStorage(newCar);
+                    carSaveService.saveCarToStorage(carParseService.parseToCar(newCar));
                     break;
                 case "5":
                     Storage.cars.stream()

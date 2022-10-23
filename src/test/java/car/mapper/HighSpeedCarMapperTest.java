@@ -27,8 +27,8 @@ public class HighSpeedCarMapperTest {
                 DriverType.AWD,
                 "8-speed");
         HighSpeedCar actual = highSpeedCarMapper.apply(HIGH_SPEED_CAR);
+        assertEquals(expected, actual);
         assertEquals(expected.getModel(), actual.getModel());
         assertEquals(expected.getAcceleration(), actual.getAcceleration());
-        assertEquals(expected, actual);
     }
 }

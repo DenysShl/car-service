@@ -1,9 +1,9 @@
 package car.model.enums;
 
 public enum DriverType {
+    AWD("All-wheel drive"),
     FWD("Front-Wheel Drive"),
-    RWD("Rear-Wheel Drive"),
-    AWD("All-wheel drive");
+    RWD("Rear-Wheel Drive");
 
     private String value;
 

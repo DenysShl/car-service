@@ -19,12 +19,32 @@ public class UserChoiceAddCar {
         int battery = 0;
         int warranty = 0;
         double fuel = 0;
+        String brand = "";
+        String model = "";
         DriverType driverType;
-        System.out.println("Input brand, for example 'BMW': ");
-        String brand = scanner.nextLine();
-        System.out.println("Input model, for example 'X5': ");
-        String model = scanner.nextLine();
 
+        while (true) {
+            System.out.println("Input brand, for example 'BMW': ");
+            String resultBrand = scanner.nextLine();
+            if (resultBrand != null && resultBrand.length() > 2) {
+                brand = resultBrand;
+                break;
+            } else {
+                System.out.println("You must enter 'Brand', "
+                        + "it can`t be empty and should to be longer then 2 chars");
+            }
+        }
+        while (true) {
+            System.out.println("Input model, for example 'X5': ");
+            String resultModel = scanner.nextLine();
+            if (resultModel != null && resultModel.length() > 2) {
+                model = resultModel;
+                break;
+            } else {
+                System.out.println("You must enter 'Model', "
+                        + "it can`t be empty and should to be longer then 2 chars");
+            }
+        }
         while (true) {
             System.out.println("Input acceleration for example '7.1': ");
             try {

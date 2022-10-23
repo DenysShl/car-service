@@ -54,15 +54,43 @@ public class ElectricCar extends Car {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ElectricCar that = (ElectricCar) o;
-        return Objects.equals(range, that.range)
-                && Objects.equals(batteryCapacity, that.batteryCapacity)
-                && Objects.equals(warranty, that.warranty);
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        final ElectricCar that = (ElectricCar) o;
+
+        if (!Objects.equals(super.model, that.model)) {
+            return false;
+        }
+        if (!Objects.equals(super.acceleration, that.acceleration)) {
+            return false;
+        }
+        if (!Objects.equals(super.brand, that.brand)) {
+            return false;
+        }
+        if (!Objects.equals(super.speed, that.speed)) {
+            return false;
+        }
+        if (!Objects.equals(super.carType, that.carType)) {
+            return false;
+        }
+        if (!Objects.equals(range, that.range)) {
+            return false;
+        }
+        if (!Objects.equals(batteryCapacity, that.batteryCapacity)) {
+            return false;
+        }
+        return Objects.equals(warranty, that.warranty);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(range, batteryCapacity, warranty);
+        int result = super.hashCode();
+        result = 31 * result + (range != null ? range.hashCode() : 0);
+        result = 31 * result + (batteryCapacity != null ? batteryCapacity.hashCode() : 0);
+        result = 31 * result + (warranty != null ? warranty.hashCode() : 0);
+        return result;
     }
 
     @Override

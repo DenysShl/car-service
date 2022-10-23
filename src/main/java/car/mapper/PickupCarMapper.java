@@ -12,7 +12,7 @@ public class PickupCarMapper implements Function<String, PickupCar> {
         return new PickupCar(
                 CarType.valueOf(brand[0]),
                 brand[1].trim().toUpperCase(),
-                values[1].trim(),
+                values[1].trim().toUpperCase(),
                 Double.parseDouble(values[2].trim()),
                 Integer.parseInt(values[3].trim()),
                 Double.parseDouble(values[4].trim())

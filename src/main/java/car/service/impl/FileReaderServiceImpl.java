@@ -13,6 +13,7 @@ public class FileReaderServiceImpl implements FileReaderService {
         try {
             return Files.readAllLines(file.toPath());
         } catch (IOException e) {
+            System.out.println(("File does not exist: " + fileName));
             throw new RuntimeException("File does not exist: " + fileName, e);
         }
     }

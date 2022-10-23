@@ -1,13 +1,15 @@
 package car;
 
+import car.service.CarParseService;
+import car.service.CarSaveService;
 import car.service.FileReaderService;
 import car.service.GenerateReportsCarService;
-import car.service.ParseService;
-import car.service.PrintReport;
+import car.service.ReportCarService;
+import car.service.impl.CarParseServiceImpl;
+import car.service.impl.CarSaveServiceImpl;
 import car.service.impl.FileReaderServiceImpl;
 import car.service.impl.GenerateReportsCarServiceImpl;
-import car.service.impl.ParseServiceImpl;
-import car.service.impl.PrintReportImpl;
+import car.service.impl.ReportCarServiceImpl;
 import car.util.MenuOption;
 import car.util.UserChoiceAddCar;
 import java.time.LocalDateTime;
@@ -39,17 +41,21 @@ public class CarServiceApp {
         FileReaderService readerService = new FileReaderServiceImpl();
         List<String> lines = readerService.readFromFile(fileName);
 
-        ParseService parseService = new ParseServiceImpl();
-        parseService.parseCarToStorage(lines);
+        CarParseService carParseService = new CarParseServiceImpl();
+        CarSaveService carSaveService = new CarSaveServiceImpl();
+        for (String stringCar : lines) {
+            carSaveService.saveCarToStorage(carParseService.parseToCar(stringCar));
+        }
 
         GenerateReportsCarService generateReportsCarService = new GenerateReportsCarServiceImpl();
         UserChoiceAddCar choiceService = new UserChoiceAddCar(scanner);
-        PrintReport report = new PrintReportImpl();
+        ReportCarService report = new ReportCarServiceImpl();
 
         MenuOption menu = new MenuOption(
                 generateReportsCarService,
                 choiceService,
-                parseService,
+                carParseService,
+                carSaveService,
                 report);
         menu.getOption(scanner);
     }

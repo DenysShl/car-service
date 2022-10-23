@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ElectricCarMapperTest {
-    private static final String ELECTRIC_CAR = "ELECTRIC TESLA; Model S; 5.8; 220; 700; 100; 5";
+    private static final String ELECTRIC_CAR = "ELECTRIC TesLA; Model S; 5.8; 220; 700; 100; 5";
     private static ElectricCarMapper electricCarMapper;
 
     @BeforeClass
@@ -20,15 +20,15 @@ public class ElectricCarMapperTest {
     public void getElectricCar_Ok() {
         ElectricCar expected = new ElectricCar(CarType.ELECTRIC,
                 "TESLA",
-                "Model S",
+                "MODEL S",
                 5.8,
                 220,
                 700,
                 100,
                 5);
         ElectricCar actual = electricCarMapper.apply(ELECTRIC_CAR);
+        assertEquals(expected, actual);
         assertEquals(expected.getModel(), actual.getModel());
         assertEquals(expected.getRange(), actual.getRange());
-        assertEquals(expected, actual);
     }
 }

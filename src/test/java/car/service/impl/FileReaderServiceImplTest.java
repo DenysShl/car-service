@@ -20,8 +20,8 @@ public class FileReaderServiceImplTest {
         expected.add("ELECTRIC TESLA; Model S; 5.8; 220; 700; 100; 5");
         expected.add("PICKUP Dodge; RAM 1500; 6.5; 210; 14.3");
         List<String> actual = fileReaderService.readFromFile(testFile.getPath());
-        assertEquals(3, actual.size());
         assertEquals(expected, actual);
+        assertEquals(3, actual.size());
     }
 
     @Test

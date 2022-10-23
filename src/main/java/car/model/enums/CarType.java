@@ -1,8 +1,8 @@
 package car.model.enums;
 
 public enum CarType {
-    HIGH_SPEED("High-Speed"),
     ELECTRIC("Electric"),
+    HIGH_SPEED("High-Speed"),
     PICKUP("Pickup");
 
     private String value;
