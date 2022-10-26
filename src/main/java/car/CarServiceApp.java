@@ -1,24 +1,24 @@
 package car;
 
-import car.service.CarParseService;
-import car.service.CarSaveService;
+import car.dao.CarDao;
+import car.dao.impl.CarDaoImpl;
 import car.service.FileReaderService;
-import car.service.GenerateReportsCarService;
 import car.service.ReportCarService;
-import car.service.impl.CarParseServiceImpl;
-import car.service.impl.CarSaveServiceImpl;
+import car.service.impl.CarStrategy;
 import car.service.impl.FileReaderServiceImpl;
-import car.service.impl.GenerateReportsCarServiceImpl;
 import car.service.impl.ReportCarServiceImpl;
+import car.util.HibernateUtil;
 import car.util.MenuOption;
 import car.util.UserChoiceAddCar;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
+import org.hibernate.SessionFactory;
 
 public class CarServiceApp {
     private static final String INPUT_FILE_NAME = "src/main/resources/cars.txt";
+    private static final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     public static void main(String[] args) {
         System.out.println("Start car service: "
@@ -41,21 +41,18 @@ public class CarServiceApp {
         FileReaderService readerService = new FileReaderServiceImpl();
         List<String> lines = readerService.readFromFile(fileName);
 
-        CarParseService carParseService = new CarParseServiceImpl();
-        CarSaveService carSaveService = new CarSaveServiceImpl();
+        CarDao carDao = new CarDaoImpl(sessionFactory);
+        CarStrategy carStrategy = new CarStrategy();
         for (String stringCar : lines) {
-            carSaveService.saveCarToStorage(carParseService.parseToCar(stringCar));
+            carDao.save(carStrategy.getCarCreateService(stringCar).getCar(stringCar));
         }
 
-        GenerateReportsCarService generateReportsCarService = new GenerateReportsCarServiceImpl();
         UserChoiceAddCar choiceService = new UserChoiceAddCar(scanner);
         ReportCarService report = new ReportCarServiceImpl();
-
         MenuOption menu = new MenuOption(
-                generateReportsCarService,
+                carStrategy,
+                carDao,
                 choiceService,
-                carParseService,
-                carSaveService,
                 report);
         menu.getOption(scanner);
     }

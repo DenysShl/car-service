@@ -1,27 +1,24 @@
 package car.util;
 
-import car.service.CarParseService;
-import car.service.CarSaveService;
-import car.service.GenerateReportsCarService;
+import car.dao.CarDao;
 import car.service.ReportCarService;
-import car.storage.Storage;
+import car.service.impl.CarStrategy;
 import java.util.Scanner;
 
 public class MenuOption {
-    private final GenerateReportsCarService generateReportsCarService;
     private final UserChoiceAddCar userChoiceAddCar;
-    private final CarParseService carParseService;
-    private final CarSaveService carSaveService;
+    private final CarStrategy carStrategy;
+    private final CarDao carDao;
     private final ReportCarService report;
 
-    public MenuOption(GenerateReportsCarService generateReportsCarService,
-                      UserChoiceAddCar userChoiceAddCar,
-                      CarParseService carParseService,
-                      CarSaveService carSaveService, ReportCarService report) {
-        this.generateReportsCarService = generateReportsCarService;
+    public MenuOption(
+            CarStrategy carStrategy,
+            CarDao carDao,
+            UserChoiceAddCar userChoiceAddCar,
+            ReportCarService report) {
         this.userChoiceAddCar = userChoiceAddCar;
-        this.carParseService = carParseService;
-        this.carSaveService = carSaveService;
+        this.carStrategy = carStrategy;
+        this.carDao = carDao;
         this.report = report;
     }
 
@@ -43,29 +40,30 @@ public class MenuOption {
             switch (text) {
                 case "1":
                     System.out.println("Show the entire cars catalog");
-                    report.print(generateReportsCarService.getAllCarsReport());
+                    report.print(carDao.getAllCars());
                     break;
                 case "2":
                 case "3":
                 case "4":
                     System.out.println("Add a new car");
                     String newCar = userChoiceAddCar.userSelected(text);
-                    carSaveService.saveCarToStorage(carParseService.parseToCar(newCar));
+                    carDao.save(carStrategy.getCarCreateService(newCar).getCar(newCar));
                     break;
                 case "5":
-                    Storage.cars.stream()
+                    carDao.getAllCars().stream()
                             .map(car -> car.getBrand()).distinct().sorted()
                             .forEach(System.out::println);
                     System.out.println("Show all cars of a particular brand, input brand: ");
                     String brand = reader.nextLine();
-                    report.print(generateReportsCarService.getAllCarsByBrand(brand));
+                    report.print(carDao.getAllCarsByBrand(brand));
                     break;
                 case "6":
-                    Storage.cars.stream().map(car -> car.getCarType().name()).distinct().sorted()
+                    carDao.getAllCars().stream()
+                            .map(car -> car.getCarType().name()).distinct().sorted()
                             .forEach(System.out::println);
                     System.out.println("Show all cars of a particular type, input type: ");
                     String type = reader.nextLine();
-                    report.print(generateReportsCarService.getAllCarsByType(type));
+                    report.print(carDao.getAllCarsByType(type));
                     break;
                 case "7":
                     text = "exit";

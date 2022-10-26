@@ -2,7 +2,9 @@ package car.model;
 
 import car.model.enums.CarType;
 import java.util.Objects;
+import javax.persistence.Entity;
 
+@Entity
 public class ElectricCar extends Car {
     private Integer range;
     private Integer batteryCapacity;
@@ -20,6 +22,10 @@ public class ElectricCar extends Car {
         this.range = range;
         this.batteryCapacity = batteryCapacity;
         this.warranty = warranty;
+    }
+
+    public ElectricCar() {
+
     }
 
     public Integer getRange() {
@@ -59,20 +65,19 @@ public class ElectricCar extends Car {
         }
 
         final ElectricCar that = (ElectricCar) o;
-
-        if (!Objects.equals(super.model, that.model)) {
+        if (!Objects.equals(super.getModel(), that.getModel())) {
             return false;
         }
-        if (!Objects.equals(super.acceleration, that.acceleration)) {
+        if (!Objects.equals(super.getAcceleration(), that.getAcceleration())) {
             return false;
         }
-        if (!Objects.equals(super.brand, that.brand)) {
+        if (!Objects.equals(super.getBrand(), that.getBrand())) {
             return false;
         }
-        if (!Objects.equals(super.speed, that.speed)) {
+        if (!Objects.equals(super.getSpeed(), that.getSpeed())) {
             return false;
         }
-        if (!Objects.equals(super.carType, that.carType)) {
+        if (!Objects.equals(super.getCarType(), that.getCarType())) {
             return false;
         }
         if (!Objects.equals(range, that.range)) {

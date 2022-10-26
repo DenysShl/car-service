@@ -3,8 +3,13 @@ package car.model;
 import car.model.enums.CarType;
 import car.model.enums.DriverType;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
+@Entity
 public class HighSpeedCar extends Car {
+    @Enumerated(value = EnumType.STRING)
     private DriverType driveType;
     private String gearBox;
 
@@ -18,6 +23,10 @@ public class HighSpeedCar extends Car {
         super(carType, brand, model, acceleration, speed);
         this.driveType = driveType;
         this.gearBox = gearBox;
+    }
+
+    public HighSpeedCar() {
+
     }
 
     public DriverType getDriveType() {
@@ -45,16 +54,19 @@ public class HighSpeedCar extends Car {
             return false;
         }
         final HighSpeedCar that = (HighSpeedCar) o;
-        if (!Objects.equals(super.model, that.model)) {
+        if (!Objects.equals(super.getModel(), that.getModel())) {
             return false;
         }
-        if (!Objects.equals(super.acceleration, that.acceleration)) {
+        if (!Objects.equals(super.getAcceleration(), that.getAcceleration())) {
             return false;
         }
-        if (!Objects.equals(super.brand, that.brand)) {
+        if (!Objects.equals(super.getBrand(), that.getBrand())) {
             return false;
         }
-        if (!Objects.equals(super.speed, that.speed)) {
+        if (!Objects.equals(super.getSpeed(), that.getSpeed())) {
+            return false;
+        }
+        if (!Objects.equals(super.getCarType(), that.getCarType())) {
             return false;
         }
         return driveType == that.driveType && Objects.equals(gearBox, that.gearBox);

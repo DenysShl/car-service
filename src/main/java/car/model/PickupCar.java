@@ -2,7 +2,9 @@ package car.model;
 
 import car.model.enums.CarType;
 import java.util.Objects;
+import javax.persistence.Entity;
 
+@Entity
 public class PickupCar extends Car {
     private Double fuelConsumption;
 
@@ -14,6 +16,10 @@ public class PickupCar extends Car {
                      Double fuelConsumption) {
         super(carType, brand, model, acceleration, speed);
         this.fuelConsumption = fuelConsumption;
+    }
+
+    public PickupCar() {
+
     }
 
     public Double getFuelConsumption() {
@@ -33,16 +39,19 @@ public class PickupCar extends Car {
             return false;
         }
         final PickupCar that = (PickupCar) o;
-        if (!Objects.equals(super.model, that.model)) {
+        if (!Objects.equals(super.getModel(), that.getModel())) {
             return false;
         }
-        if (!Objects.equals(super.acceleration, that.acceleration)) {
+        if (!Objects.equals(super.getAcceleration(), that.getAcceleration())) {
             return false;
         }
-        if (!Objects.equals(super.brand, that.brand)) {
+        if (!Objects.equals(super.getBrand(), that.getBrand())) {
             return false;
         }
-        if (!Objects.equals(super.speed, that.speed)) {
+        if (!Objects.equals(super.getSpeed(), that.getSpeed())) {
+            return false;
+        }
+        if (!Objects.equals(super.getCarType(), that.getCarType())) {
             return false;
         }
         return Objects.equals(fuelConsumption, that.fuelConsumption);

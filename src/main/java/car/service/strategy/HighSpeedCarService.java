@@ -1,14 +1,15 @@
-package car.mapper;
+package car.service.strategy;
 
+import car.model.Car;
 import car.model.HighSpeedCar;
 import car.model.enums.CarType;
 import car.model.enums.DriverType;
-import java.util.function.Function;
+import car.service.CarCreateService;
 
-public class HighSpeedCarMapper implements Function<String, HighSpeedCar> {
+public class HighSpeedCarService implements CarCreateService {
     @Override
-    public HighSpeedCar apply(String s) {
-        String[] values = s.split(";");
+    public Car getCar(String string) {
+        String[] values = string.split(";");
         String[] brand = values[0].split(" ");
         return new HighSpeedCar(
                 CarType.valueOf(brand[0].replaceAll("-", "_")),

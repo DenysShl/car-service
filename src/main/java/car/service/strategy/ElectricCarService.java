@@ -1,13 +1,14 @@
-package car.mapper;
+package car.service.strategy;
 
+import car.model.Car;
 import car.model.ElectricCar;
 import car.model.enums.CarType;
-import java.util.function.Function;
+import car.service.CarCreateService;
 
-public class ElectricCarMapper implements Function<String, ElectricCar> {
+public class ElectricCarService implements CarCreateService {
     @Override
-    public ElectricCar apply(String s) {
-        String[] values = s.split(";");
+    public Car getCar(String string) {
+        String[] values = string.split(";");
         String[] brand = values[0].split(" ");
         return new ElectricCar(
                 CarType.valueOf(brand[0]),

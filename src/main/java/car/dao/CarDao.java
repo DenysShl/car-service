@@ -1,10 +1,12 @@
-package car.service;
+package car.dao;
 
 import car.model.Car;
 import java.util.List;
 
-public interface GenerateReportsCarService {
-    List<Car> getAllCarsReport();
+public interface CarDao {
+    Car save(Car car);
+
+    List<Car> getAllCars();
 
     List<Car> getAllCarsByBrand(String brand);
 

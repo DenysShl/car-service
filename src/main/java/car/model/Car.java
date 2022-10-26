@@ -2,13 +2,32 @@ package car.model;
 
 import car.model.enums.CarType;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
-public abstract class Car {
-    protected CarType carType;
-    protected String brand;
-    protected String model;
-    protected Double acceleration;
-    protected Integer speed;
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "cars")
+public class Car {
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private Long id;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "car_type")
+    private CarType carType;
+    @Column(nullable = false)
+    private String brand;
+    private String model;
+    private Double acceleration;
+    private Integer speed;
 
     public Car(CarType carType,
                String brand,
@@ -20,6 +39,10 @@ public abstract class Car {
         this.model = model;
         this.acceleration = acceleration;
         this.speed = speed;
+    }
+
+    public Car() {
+
     }
 
     public String getBrand() {
