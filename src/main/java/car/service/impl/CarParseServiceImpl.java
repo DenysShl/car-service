@@ -16,16 +16,10 @@ public class CarParseServiceImpl implements CarParseService {
         String[] brendType = values[0].split(" ");
         String carType = brendType[0].replaceAll("-", "_").toUpperCase();
 
-        switch (CarType.valueOf(carType)) {
-            case HIGH_SPEED:
-                return new HighSpeedCarMapper().apply(string);
-            case ELECTRIC:
-                return new ElectricCarMapper().apply(string);
-            case PICKUP:
-                return new PickupCarMapper().apply(string);
-
-            default:
-                throw new IllegalArgumentException("Unexpected value: " + carType);
-        }
+        return switch (CarType.valueOf(carType)) {
+            case HIGH_SPEED -> new HighSpeedCarMapper().apply(string);
+            case ELECTRIC -> new ElectricCarMapper().apply(string);
+            case PICKUP -> new PickupCarMapper().apply(string);
+        };
     }
 }

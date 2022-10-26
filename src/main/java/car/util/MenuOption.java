@@ -17,7 +17,8 @@ public class MenuOption {
     public MenuOption(GenerateReportsCarService generateReportsCarService,
                       UserChoiceAddCar userChoiceAddCar,
                       CarParseService carParseService,
-                      CarSaveService carSaveService, ReportCarService report) {
+                      CarSaveService carSaveService,
+                      ReportCarService report) {
         this.generateReportsCarService = generateReportsCarService;
         this.userChoiceAddCar = userChoiceAddCar;
         this.carParseService = carParseService;
@@ -41,38 +42,32 @@ public class MenuOption {
             );
             text = reader.nextLine();
             switch (text) {
-                case "1":
+                case "1" -> {
                     System.out.println("Show the entire cars catalog");
                     report.print(generateReportsCarService.getAllCarsReport());
-                    break;
-                case "2":
-                case "3":
-                case "4":
+                }
+                case "2", "3", "4" -> {
                     System.out.println("Add a new car");
                     String newCar = userChoiceAddCar.userSelected(text);
                     carSaveService.saveCarToStorage(carParseService.parseToCar(newCar));
-                    break;
-                case "5":
+                }
+                case "5" -> {
                     Storage.cars.stream()
                             .map(car -> car.getBrand()).distinct().sorted()
                             .forEach(System.out::println);
                     System.out.println("Show all cars of a particular brand, input brand: ");
                     String brand = reader.nextLine();
                     report.print(generateReportsCarService.getAllCarsByBrand(brand));
-                    break;
-                case "6":
+                }
+                case "6" -> {
                     Storage.cars.stream().map(car -> car.getCarType().name()).distinct().sorted()
                             .forEach(System.out::println);
                     System.out.println("Show all cars of a particular type, input type: ");
                     String type = reader.nextLine();
                     report.print(generateReportsCarService.getAllCarsByType(type));
-                    break;
-                case "7":
-                    text = "exit";
-                    break;
-
-                default:
-                    System.out.println("You can use number 1-7, repeat please your choice");
+                }
+                case "7" -> text = "exit";
+                default -> System.out.println("You can use number 1-7, repeat please your choice");
             }
         } while (text != "exit");
     }
