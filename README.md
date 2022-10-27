@@ -2,6 +2,9 @@
 
 ### Features 👀️: 
 This is app works in console. You can use a menu for select car or create new car.
+branch dev-car-service used storage
+branch dev-car-service-for-db used database PostgreSql and Hibernate.
+
 ```
 Please make your choice:
 1. Show the entire cars catalog

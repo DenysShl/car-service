@@ -3,8 +3,10 @@ package car.model;
 import car.model.enums.CarType;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "electric_car")
 public class ElectricCar extends Car {
     private Integer range;
     private Integer batteryCapacity;

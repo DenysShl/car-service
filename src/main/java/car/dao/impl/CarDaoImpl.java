@@ -41,7 +41,8 @@ public class CarDaoImpl implements CarDao {
     @Override
     public List<Car> getAllCars() {
         try (Session session = sessionFactory.openSession()) {
-            Query<Car> carQuery = session.createQuery("SELECT c FROM Car c", Car.class);
+            Query<Car> carQuery = session.createQuery("SELECT c FROM Car c "
+                    + "ORDER BY c.carType ASC", Car.class);
             return carQuery.getResultList();
         } catch (Exception e) {
             throw new RuntimeException("Can`t find cars!", e);
@@ -52,7 +53,8 @@ public class CarDaoImpl implements CarDao {
     public List<Car> getAllCarsByBrand(String brand) {
         try (Session session = sessionFactory.openSession()) {
             Query<Car> carQuery = session.createQuery(
-                    "FROM Car c WHERE UPPER(c.brand) LIKE CONCAT(:brand, '%')", Car.class);
+                    "FROM Car c WHERE UPPER(c.brand) LIKE CONCAT(:brand, '%') "
+                            + "ORDER BY c.carType ASC", Car.class);
             carQuery.setParameter("brand", brand.toUpperCase());
             return carQuery.getResultList();
         } catch (Exception e) {
@@ -64,8 +66,9 @@ public class CarDaoImpl implements CarDao {
     public List<Car> getAllCarsByType(String type) {
         try (Session session = sessionFactory.openSession()) {
             Query<Car> carQuery = session.createQuery(
-                    "FROM Car WHERE carType = :cartype", Car.class);
-            carQuery.setParameter("cartype", CarType.valueOf(type.toUpperCase()));
+                    "FROM Car WHERE carType = :cartype ORDER BY carType ASC", Car.class);
+            carQuery.setParameter("cartype",
+                    CarType.valueOf(type.toUpperCase().replaceAll("-", "_")));
             return carQuery.getResultList();
         } catch (Exception e) {
             throw new RuntimeException("Can`t find cars by type: " + type, e);

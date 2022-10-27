@@ -6,8 +6,10 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "high_speed_car")
 public class HighSpeedCar extends Car {
     @Enumerated(value = EnumType.STRING)
     private DriverType driveType;
